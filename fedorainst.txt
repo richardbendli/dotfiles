@@ -58,6 +58,17 @@ dnf list installed                       // list installed packages
 sudo dnf autoremove @gnome-desktop       // remove gnome
 sudo dnf group remove gnome-desktop      // remove all of GNOME
 fwupdmgr security                        // security level
+sud odnf install light                   // to control backlights
+j4-dmenu-desktop                         // displaying .desktop filesin the dmenu
+
+sudo dnf install i3 i3status dmenu i3lock xbacklight feh polybar light
+                 autorandr picom feh
+dnf remove i3
+
+# i3-gaps install recommends below
+# Recommends:dmenu, i3lock, i3status, pulseaudio-utils, rxvt-unicode
+sudo dnf install --allowerasing i3-gaps
+
 
 
 =============================== install ====================================
@@ -89,7 +100,7 @@ sudo systemctl set-default graphical.target
 #install git
 sudo dnf install git
 
-# clone 
+# clone
 git clone https://github.com/christitustech/fedora-titus
 
 cd fedora-titus              in /home/ben mkdir .config
@@ -123,7 +134,7 @@ sudo reboot
 # https://techviewleo.com/install-nerd-fonts-on-linux-macos/
 # https://ostechnix.com/install-nerd-fonts-to-add-glyphs-in-your-code-on-linux/
 
-sudo dnf install 
+sudo dnf install
 
 =============================== arandr ====================================
 
@@ -139,11 +150,15 @@ sudo dnf install \
 
 
 sudo dnf install \
-  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm   
+  https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
 # after rpm fusion installed run this
 sudo dnf groupupdate core
 
+=============================== copr package ====================================
+
+sudo dnf copr enable fuhrmann/i3-gaps
+sudo dnf install i3-gaps
 
 =============================== flatpack ====================================
 
@@ -192,6 +207,26 @@ sudo dnf install NetworkManager-wifi
 # vscode
 
 https://www.linuxcapable.com/how-to-install-visual-studio-code-vs-code-on-fedora-34-35/
+
+
+https://linuxblog.xyz/posts/i3wm/      // vscode
+
+sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+
+cat << EOF | sudo tee /etc/yum.repos.d/vscode.repo
+[code]
+name=Visual Studio Code
+baseurl=https://packages.microsoft.com/yumrepos/vscode
+enabled=1
+gpgcheck=1
+gpgkey=https://packages.microsoft.com/keys/microsoft.asc
+EOF
+
+sudo dnf install code
+
+
+
+
 
 =============================== github-desktop ====================================
 
