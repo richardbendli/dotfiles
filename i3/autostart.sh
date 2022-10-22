@@ -7,7 +7,11 @@ function run {
   fi
 }
 
+# polybar
 $HOME/.config/polybar/launch.sh &
+
+# sxhkd
+sxhkd -c $HOME/.config/i3/sxhkd/sxhkdrc &
 
 #========================================================================================
 
@@ -31,8 +35,6 @@ $HOME/.config/polybar/launch.sh &
 #  run sxhkd -c ~/.config/bspwm/sxhkd/sxhkdrc &
 #fi
 
-#sxhkd
-sxhkd -c $HOME/.config/i3/sxhkd/sxhkdrc &
 #========================================================================================
 
 # compositor
@@ -64,6 +66,7 @@ feh --bg-fill /usr/share/backgrounds/arcolinux/arco-wallpaper.jpg &
 
 run variety &
 run nm-applet &
+#run pamac-tray &
 run xfce4-power-manager &
 numlockx on &
 #blueberry-tray &
@@ -76,9 +79,8 @@ picom --config $HOME/.config/i3/picom.conf &
 #run thunar &
 #run dropbox &
 #run insync start &
-#clipmenud &
+clipmenud &
 dunst &
 #autotiling &
-#~/.fehbg &
 
 #========================================================================================
