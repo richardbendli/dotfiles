@@ -36,15 +36,8 @@
 =============================== i3 spin fedora ====================================
 mod + d
 type liveinst
-
-sudo dnf install xrandr
-
 mod+ d
 type display
-
-
-
-
 
 =============================== commands ====================================
 
@@ -60,20 +53,24 @@ sudo dnf group remove gnome-desktop      // remove all of GNOME
 fwupdmgr security                        // security level
 sud odnf install light                   // to control backlights
 j4-dmenu-desktop                         // displaying .desktop filesin the dmenu
-
-sudo dnf install i3 i3status dmenu i3lock xbacklight feh polybar light
-                 autorandr picom feh
 dnf remove i3
+sudo dnf install xrandr
+
+
+
+=============================== i3 recommends ====================================
+
 
 # i3-gaps install recommends below
-# Recommends:dmenu, i3lock, i3status, pulseaudio-utils, rxvt-unicode
+sudo dnf install i3 i3status i3lock pulseaudio-utils xbacklight rxvt-unicode
 sudo dnf install --allowerasing i3-gaps
+
+sudo dnf install feh polybar light autorandr picom feh dmenu alacritty
 
 
 
 =============================== install ====================================
 # speed up dnf
-sudo dnf install nano
 
 sudo nano /etc/dnf/dnf.conf
 
@@ -90,7 +87,34 @@ sudo nano /etc/dnf/dnf.conf
 		deltarpm=True
 	  keepcache=True
 
+# enable rpmfusion
+
 sudo dnf update
+sudo dnf install git sxhkd alacritty pcmanfm
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+=============================== sddm ====================================
+
 
 # install display manager
 sudo dnf install sddm
@@ -98,6 +122,9 @@ sudo dnf install sddm
 # fix login
 sudo systemctl enable sddm
 sudo systemctl set-default graphical.target
+
+=============================== git ====================================
+
 
 #install git
 sudo dnf install git
@@ -138,9 +165,11 @@ sudo reboot
 
 sudo dnf install
 
+
 =============================== arandr ====================================
 
 sudo dnf install arandr
+
 
 =============================== rpm packages ====================================
 
@@ -156,6 +185,8 @@ sudo dnf install \
 
 # after rpm fusion installed run this
 sudo dnf groupupdate core
+
+
 
 =============================== copr package ====================================
 
