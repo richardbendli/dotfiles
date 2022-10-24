@@ -76,8 +76,9 @@ sudo dnf install --allowerasing i3-gaps
 sudo dnf install nano
 
 sudo nano /etc/dnf/dnf.conf
-      [main]
-      gpgcheck=1
+
+		[main]
+    gpgcheck=1
 	  installonly_limit=3
 	  clean_requirements_on_remove=True
 	  best=False
@@ -86,6 +87,7 @@ sudo nano /etc/dnf/dnf.conf
 	  fatsestmirror=True
 	  max_parallel_downloads=10
 	  defaultyes=True
+		deltarpm=True
 	  keepcache=True
 
 sudo dnf update
