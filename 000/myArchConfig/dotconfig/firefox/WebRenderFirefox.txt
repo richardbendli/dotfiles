@@ -1,0 +1,11 @@
+What if you want to enable or disable WebRender, or check if hardware acceleration or the software renderer is used?
+    1. Load about:config in the Firefox address bar.
+    2. Confirm that you will be careful if the warning page is displayed.
+    3. Use the search field to find the following preferences, and to modify them once they are displayed:
+        ◦ gfx.webrender.all -- Set this to TRUE to enable WebRender, or to FALSE to disable it.
+        ◦ gfx.webrender.software -- This preferences determines if the CPU is used. If this is set to TRUE, WebRender will use the CPU, if set to FALSE, it will use the GPU but only if the GPU is capable.
+    4. Restart the Firefox web browser.
+To sum it up:
+    • If gfx.webrender.all is set to FALSE, WebRender is disabled.
+    • If gfx.webrender.all is set to TRUE and gfx.webrender.software is set to FALSE, WebRender uses hardware acceleration.
+    • If gfx.webrender.all is set to TRUE and gfx.webrender.software is set to TRUE, WebRender uses the CPU and not the GPU.

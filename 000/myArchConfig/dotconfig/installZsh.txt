@@ -1,0 +1,42 @@
+#tozsh
+
+#uninstall oh-my-zsh
+uninstall_oh_my_zsh
+
+#copy zsh files
+
+#set up nvim
+
+#install zoxide [zoxide is a smarter cd command]
+sudo pacman -S zoxide
+
+#do the steps
+https://www.chrisatmachine.com/Nodejs/02-Install-FNM/
+
+sudo pacman -S curl
+curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir $HOME/.local/bin
+curl -fsSL https://fnm.vercel.app/install | bash -s -- --install-dir $HOME/.local/bin --skip-shell
+reload terminal
+
+# install node js,  try this first
+pacman -S nodejs npm
+
+#if then
+fnm ls-remote
+fnm install 17.......
+fnm ls
+fnm use 17....
+fnm current
+
+#install fzf
+sudo pacman -S fzf
+
+#install ranger
+sudo pacman -S ranger
+
+#exa
+bat
+krusader
+sublime
+
+

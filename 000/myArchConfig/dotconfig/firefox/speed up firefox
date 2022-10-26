@@ -1,0 +1,7 @@
+
+about:config
+
+layers.acceleration.force-enabled    to  True
+gfx.webrender.all                    to  Ture
+
+

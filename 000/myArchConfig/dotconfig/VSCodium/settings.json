@@ -1,0 +1,66 @@
+{
+  "editor.tabSize": 2,
+  "editor.fontSize": 21,
+  "editor.fontFamily": "JetBrains Mono Light",
+  "editor.fontLigatures": false,
+  "editor.wordWrap": "on",
+  "vsicons.dontShowNewVersionMessage": true,
+  "auto-rename-tag.activationOnLanguage": ["html", "xml", "css", "javascript"],
+
+  "liveServer.settings.donotVerifyTags": true,
+  "liveServer.settings.donotShowInfoMsg": true,
+  "emmet.includeLanguages": { "html": "html", "css": "css", },
+  
+  "[javascript]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[css]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[html]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#323536",
+    "statusBar.noFolderBackground": "#444447",
+    "statusBar.debuggingBackground": "#853838"
+  },
+  "workbench.editor.enablePreview": false,
+  "window.titleBarStyle": "custom",
+  "workbench.editor.titleScrollbarSizing": "large",
+  "window.title": "${dirty}${activeEditorShort}${separator}${rootPath}${rootName}${separator}${appName}",
+  "javascript.suggest.paths": true,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1500,
+  "cSpell.enabledLanguageIds": [
+    "asciidoc",
+    "css",
+    "git-commit",
+    "go",
+    "graphql",
+    "handlebars",
+    "html",
+    "java",
+    "javascript",
+    "javascriptreact",
+    "less",
+    "markdown",
+    "plaintext",
+    "python",
+    "scss",
+    "text",
+    "typescript",
+    "typescriptreact",
+    "vue",
+    "yaml",
+    "yml"
+  ],
+  "workbench.startupEditor": "none",
+  "workbench.editor.wrapTabs": true,
+}
+
+

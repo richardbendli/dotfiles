@@ -1,0 +1,52 @@
+# i3 info
+https://superuser.com/questions/1146511/how-to-place-i3bar-on-top
+
+
+# install github desktop
+git clone https://aur.archlinux.org/github-desktop-bin.git
+cd github-desktop-bin/
+makepkg -si
+
+
+#with aur helper yay
+yay -S github-desktop
+
+
+# install qemu
+https://brainfucksec.github.io/archlinux-kvm-qemu
+# if qemu issue 
+https://www.xmodulo.com/network-default-is-not-active.html
+
+
+#krusader
+sudo pacman -S krusader
+sudo pacman -S kio-extras
+
+
+# install thonny from AUR
+git clone https://aur.archlinux.org/thonny.git
+ls
+cd thonny
+makepkg -si
+
+#clamAV
+AUR
+sudo freshclam
+clamscan /*   
+
+#pimox
+sudo apt update && sudo apt upgrade
+sudo -s curl https://raw.githubusercontent.com/pimox/pimox7/master/RPiOS64-IA-Install.sh > RPiOS64-IA-Install.sh
+nano RPiOS64-IA-Install.sh 
+
+
+#install snapd
+sudo systemctl status snapd.socket
+sudo systemctl start snapd.socket
+
+ snap install rpi-imager
+
+
+
+
+

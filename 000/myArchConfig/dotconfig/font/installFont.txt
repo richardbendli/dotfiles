@@ -1,0 +1,23 @@
+
+download JetBrains Mono
+copy directory inc.  ttf files  to   /usr/share/fonts
+sudo cp -r /home/ben/Documents/04myArchconfig/dotconfig/font/jetbrains/ttf /usr/share/fonts
+in terminal type    fc-list  if files are there
+type  fc-cache
+set the font
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

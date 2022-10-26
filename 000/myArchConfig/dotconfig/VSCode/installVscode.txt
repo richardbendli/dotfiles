@@ -1,0 +1,33 @@
+# try this first!
+https://linuxhint.com/install_visual_studio_code_arch_linux/
+
+# try this second if first does not work!
+https://linuxhint.com/install_visual_studio_code_archlinux/
+
+# read first before installing!!!!!!!!!!!!!
+https://www.linuxfordevices.com/tutorials/linux/vs-code-on-arch
+
+
+
+# product.json   ->  /opt/visual-studio-code/resources/app
+
+
+
+# settings.json  ->  /home/ben/.config/Code/User
+
+
+install git
+git clone https://aur.archlinux.org/visual-studio-code-bin.git
+cd visual-studio-code-bin
+makepkg -si
+
+
+
+
+
+
+
+
+
+
+
