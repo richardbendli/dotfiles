@@ -1,0 +1,445 @@
+#        _              _     _           _
+#       | | _____ _   _| |__ (_)_ __   __| |___
+#       | |/ / _ \ | | | '_ \| | '_ \ / _` / __|
+#       |   <  __/ |_| | |_) | | | | | (_| \__ \
+#       |_|\_\___|\__, |_.__/|_|_| |_|\__,_|___/
+#                 |___/
+#
+#===================================== keybinds =====================================
+
+#kill
+super + q
+	bspc node -c
+
+#vlc
+super + v
+    vlc --video-on-top
+
+#browser
+super + b
+    firefox
+
+#gitkraken
+super + alt + g
+    gitkraken
+
+#vscode
+super + c
+    code
+
+#htop
+super + h
+    urxvt 'htop task manager' -e htop
+
+#urxvt
+super + t
+    urxvt
+
+#alacritty
+super + Return
+    alacritty
+
+#pcmanfm
+super + p
+    pcmanfm
+
+#krusader
+super + k
+    krusader
+
+#nitrogen
+ctrl + alt + n
+     nitrogen
+
+#reload sxhkd
+super + shift + s
+    pkill -USR1 -x sxhkd
+
+#Reload bspwm
+super + shift + r
+	~/.config/bspwm/bspwmrc
+#    bspc wm -r
+
+#xkill
+ctrl + alt + x
+    xkill
+
+#lockscreen
+#super + l
+#    betterlockscreen -l
+#    betterlockscreen -l blur
+
+#super + g; {n,t,l,g,k,a,o}
+#  {nitrogen,telegram-desktop,lowriter,gimp,kdenlive,flatpak run org.audacityteam.Audacity,flatpak run com.obsproject.Studio}
+
+#super + s; {s,b,a,c,r,d,e}
+#  {dmsearch,bm.sh,dmconf,clipmenu,rofi-beats-linux, flatpak run org.mozilla.firefox snapdrop.net, rofi -show emoji -modi emoji}
+
+#super + r; {r,a}
+#    {ricer.sh, alchanger.sh}
+
+
+
+#===================================== dmenu =====================================
+
+#dmenu
+super + shift + d
+    dmenu_run -i -nb '#191919' -nf '#fea63c' -sb '#fea63c' -sf '#191919' -fn 'NotoMonoRegular:bold:pixelsize=14'
+
+
+
+#===================================== scratchpad =====================================
+#scratchpad
+
+
+
+#===================================== notification =====================================
+
+#notifications
+ctrl + space
+  dunstctl close
+
+ctrl + shift + space
+  dunstctl close-all
+
+ctrl + shift + period
+  dunstctl context
+
+ctrl + grave
+  dunstctl history-pop
+
+
+
+#===================================== xfce4 =====================================
+
+#xfce4-terminal dropdown
+F12
+    xfce4-terminal --drop-down
+
+
+#xfce4-settings-manager
+ctrl + alt + m
+     xfce4-settings-manager
+
+#xfce4-appfinder
+ctrl + alt + a
+    xfce4-appfinder
+
+
+
+#===================================== wallpaper =====================================
+
+#wallpaper trash
+alt + shift + t
+    variety -t
+
+#wallpaper next
+alt + shift + n
+    variety -n
+
+#wallpaper previous
+alt + shift + p
+    variety -p
+
+#wallpaper favorite
+alt + shift + f
+    variety -f
+
+#wallpaper update
+alt + shift + u
+    wal -i $(cat $HOME/.config/variety/wallpaper/wallpaper.jpg.txt)&
+
+
+
+#===================================== screenshot =====================================
+
+#flameshot gui
+ctrl + alt + s
+    flameshot gui
+
+#screeenshooter
+ctrl + Print
+     xfce4-screenshooter
+
+
+
+#===================================== rofi =====================================
+
+#rofi
+super + F12
+#    rofi -show drun -show-icons -font "Noto Sans 14"
+     rofi -show drun
+#super + p
+#    rofi -show power-menu -modi power-menu:rofi-power-menu
+
+#rofi theme selector
+#ctrl + alt + r
+#  rofi-theme-selector
+
+
+
+#===================================== focus selected desktop =====================================
+
+#focus selected desktop
+super + Tab
+	bspc desktop -f '^{1-9,10}'
+
+#increase/decrease window gap on focused desktop
+super + bracket{left,right}
+	bspc config -d focused window_gap $((`bspc config -d focused window_gap` {-,+} 5 ))
+
+#set the window state
+super + space
+	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+#move focus to other monitor
+super + BackSpace
+		bspc monitor -f next
+
+
+
+#===================================== focus/swap windows by direction =====================================
+
+#focus/swap windows by direction
+super + {_,shift + }{h,j,k,l}
+	bspc node --{focus,swap} {west,south,north,east}
+
+#flip layout vertically/horizontally
+super + {_,shift + }a
+	bspc node @/ --flip {vertical,horizontal}
+
+#move focused window to other monitor
+super + shift + Left
+	bspc node -m next --follow
+
+#move focused window to other monitor
+super + shift + Right
+		bspc node -m next --follow
+
+#move focused window to other monitor
+super + shift + Up
+	bspc node -m next --follow
+
+#move focused window to other monitor
+super + shift + Down
+		bspc node -m next --follow
+
+
+
+#===================================== focus/swap windows by direction ====================================
+
+#focus/swap windows by direction
+super + ctrl + {Left,Down,Up,Right}
+	bspc node --{focus} {west,south,north,east}
+
+#contract tiled space
+super + ctrl + {h,j,k,l}
+	bspc node {@east -r -10,@north -r +10,@south -r -10,@west -r +10}
+
+#focus parent/brother/first/second for preselection
+super + ctrl + {e,r,t,y}
+	bspc node --focus @{parent,brother,first,second}
+
+#preselect the splitting area for next window on leaf/parent
+super + ctrl + {u,i,o,p}
+	bspc node --presel-dir \~{west,south,north,east}
+
+#define splitting ratio for next window on leaf/parent
+super + ctrl + {_,shift +}{1-9}
+	bspc node {_,@/} --presel-ratio 0.{1-9}
+
+
+
+#===================================== focus selected desktop =====================================
+
+#focus selected desktop
+alt + Tab
+	bspc desktop -f '^{1-9,10}'
+
+#rotate desktop
+alt + space
+	bspc node @/ --rotate {90,-90}
+
+
+
+#===================================== focus next/previous window =====================================
+
+#focus next/previous window
+ctrl + alt + Left
+	bspc node --focus west
+
+#focus next/previous window
+ctrl + alt + Right
+	bspc node --focus east
+
+#focus Up window
+ctrl + alt + Up
+	bspc node --focus north
+
+#focus Down window
+ctrl + alt + Down
+	bspc node --focus south
+
+#focus selected desktop FOR QWERTY KEYBOARDS
+super + {1-9,0}
+	bspc desktop -f '^{1-9,10}'
+
+
+
+#=========================== Move window to selected desktop FOR QWERTY KEYBOARDS ===========================
+
+#move window to selected desktop FOR QWERTY KEYBOARDS
+super + shift + {1-9,0}
+    id=$(bspc query -N -n); bspc node -d ^{1-9,10}; bspc node -f ${id}}
+
+
+
+#===================================== focused desktop window gap =====================================
+
+#focused desktop window gap
+super + button{4,5}
+  bspc config -d focused window_gap $((`bspc config -d focused window_gap` {-,+} 2 ))
+
+
+
+#===================================== expand tiled space =====================================
+
+#expand tiled space
+alt + shift + {h,j,k,l}
+	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
+
+
+
+#===================================== move floating window =====================================
+
+#move floating window
+super + alt + {_,shift + }{Left,Down,Up,Right}
+	~/.config/bspwm/scripts/move-window {_,edge-}{west,south,north,east}
+
+
+
+#===================================== cancel preselection =====================================
+
+#cancel preselection
+super + ctrl + space
+	bspc node --presel-dir cancel
+
+
+
+#===================================== volume 01 =====================================
+
+#pulse audio control
+ctrl + alt + u
+     pavucontrol
+
+#raises volume
+XF86AudioRaiseVolume
+    amixer set Master 10%+
+
+#lowers volume
+XF86AudioLowerVolume
+    amixer set Master 10%-
+
+#mute
+XF86AudioMute
+    amixer -D pulse set Master 1+ toggle
+
+#play
+XF86AudioPlay
+    playerctl play-pause
+
+#next
+XF86AudioNext
+    playerctl next
+
+#previous
+XF86AudioPrev
+    playerctl previous
+
+#stop
+XF86AudioStop
+    playerctl stop
+
+
+
+#===================================== volume 02 =====================================
+
+#XF86AudioRaiseVolume
+#        amixer -c 1 -- sset Master 2db+
+#
+#XF86AudioLowerVolume
+#        amixer -c 1 -- sset Master 2db-
+#
+#XF86AudioMute
+#        amixer -c 1 -- sset Master toggle
+#
+#alt + d
+#        amixer -c 1 -- sset Master 2db+
+#
+#alt + a
+#        amixer -c 1 -- sset Master 2db-
+#
+#XF86AudioPlay
+#    playerctl play-pause
+#
+#ctrl + alt + p
+#    playerctl play-pause
+#
+#XF86AudioNext
+#    playerctl next
+#
+#XF86AudioPrev
+#    playerctl previous
+#
+#ctrl + shift + period
+#    playerctl next
+#
+#ctrl + shift + comma
+#    playerctl previous
+#
+#XF86AudioStop
+#    playerctl stop
+#
+#alt + {h,j,k,l}
+#   mpc {prev,next,play,pause}
+
+
+
+#===================================== brightness =====================================
+
+#brightness up
+#ctrl + alt + 1
+XF86MonBrightnessUp
+    xbacklight -inc 10
+
+#brightness down
+XF86MonBrightnessDown
+    xbacklight -dec 10
+
+
+
+#===================================== polybar =====================================
+
+hide polybar
+super + y
+    polybar-msg cmd toggle
+
+
+
+#===================================== conky =====================================
+
+#conky-toggle
+#ctrl + alt + c
+#    conky-toggle
+
+
+
+#===================================== picom =====================================
+
+#picom toggle
+ctrl + alt + o
+    ~/.config/bspwm/scripts/picom-toggle.sh
+
+
+#======================================================================================
+#======================================================================================
