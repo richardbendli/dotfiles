@@ -15,9 +15,13 @@ super + q
 super + v
     vlc --video-on-top
 
-#browser
+#browser firefox
 super + b
     firefox
+
+#browser brave
+#super +
+#    brave
 
 #gitkraken
 super + alt + g
@@ -26,6 +30,10 @@ super + alt + g
 #vscode
 super + c
     code
+
+#fullscreen
+super + f
+    bspc node -t "~"fullscreen
 
 #htop
 super + h
