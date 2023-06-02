@@ -14,14 +14,15 @@ super + q
 #vlc
 super + v
     vlc --video-on-top
+    #flatpak run org.videolan.VLC
 
 #browser firefox
 super + b
     firefox
 
 #browser brave
-#super +
-#    brave
+super + e
+    brave-browser-stable
 
 #gitkraken
 super + alt + g
@@ -55,6 +56,10 @@ super + p
 super + k
     krusader
 
+#kitty
+super + y
+    kitty
+
 #nitrogen
 ctrl + alt + n
      nitrogen
@@ -72,10 +77,7 @@ super + shift + r
 ctrl + alt + x
     xkill
 
-#lockscreen
-#super + l
-#    betterlockscreen -l
-#    betterlockscreen -l blur
+
 
 #super + g; {n,t,l,g,k,a,o}
 #  {nitrogen,telegram-desktop,lowriter,gimp,kdenlive,flatpak run org.audacityteam.Audacity,flatpak run com.obsproject.Studio}
@@ -116,6 +118,18 @@ ctrl + shift + period
 ctrl + grave
   dunstctl history-pop
 
+
+
+#===================================== Lockscreen =====================================
+
+# Lockscreen
+#ctrl + alt + l
+#    betterlockscreen --lock
+
+#lockscreen
+#super + l
+#    betterlockscreen -l
+#    betterlockscreen -l blur
 
 
 #===================================== xfce4 =====================================
@@ -165,9 +179,25 @@ alt + shift + u
 ctrl + alt + s
     flameshot gui
 
+#flameshot
+#super + p
+#	flameshot full -p /media/drive/Screenshots
+
+#flameshot
+#super + shift + p
+#	flameshot gui -p /media/drive/Screenshots
+
+
 #screeenshooter
 ctrl + Print
      xfce4-screenshooter
+
+
+#===================================== Color Picker =====================================
+
+# Color Picker
+#super + p
+#	color-gpick
 
 
 
@@ -183,6 +213,39 @@ super + F12
 #rofi theme selector
 #ctrl + alt + r
 #  rofi-theme-selector
+
+
+
+#===================================== Applications/scripts =====================================
+
+# Terminal Apps
+#ctrl + alt + {v,r,h}
+#	alacritty --config-file ~/.config/bspwm/alacritty/alacritty.yml -e {vim,ranger,htop}
+
+# Rofi App Launcher
+#alt + F1
+#	sh ~/.config/bspwm/rofi/bin/launcher
+
+
+
+
+#===================================== Windows =====================================
+
+# Expanding windows
+#super + control + {Left,Right,Up,Down}
+#	bspc node -z {left -20 0,right 20 0,top 0 -20,bottom 0 20}
+
+## Shrinking windows
+#super + alt + {Left,Right,Up,Down}
+#	bspc node -z {left 20 0,right -20 0,top 0 20,bottom 0 -20}
+
+## Move floating windows
+#alt + shift + {Left,Down,Up,Right}
+#	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# Hide/Unhide Window
+#super + shift + i
+#	winmask
 
 
 
@@ -342,11 +405,15 @@ ctrl + alt + u
 
 #raises volume
 XF86AudioRaiseVolume
-    amixer set Master 10%+
+    amixer set Master 5%+
 
 #lowers volume
 XF86AudioLowerVolume
-    amixer set Master 10%-
+    amixer set Master 5%-
+
+#mute
+#XF86AudioMute
+#        amixer set Master toggle
 
 #mute
 XF86AudioMute
@@ -429,7 +496,7 @@ XF86MonBrightnessDown
 #===================================== polybar =====================================
 
 hide polybar
-super + y
+super + i
     polybar-msg cmd toggle
 
 
