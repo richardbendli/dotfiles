@@ -7,6 +7,10 @@ function run {
   fi
 }
 
+# rofi wifi menu
+#$HOME/.config/rofi/wifimenu/rofi-wifi-menu.sh &
+
+
 $HOME/.config/polybar/launch.sh &
 sxhkd -c ~/.config/bspwm/sxhkdrc &
 picom --config $HOME/.config/bspwm/picom.conf &
@@ -14,9 +18,6 @@ picom --config $HOME/.config/bspwm/picom.conf &
 /usr/lib/xfce4/notifyd/xfce4-notifyd &
 #conky -c $HOME/.config/bspwm/system-overview &
 xsetroot -cursor_name left_ptr &
-
-# rofi wifi menu
-#$HOME/.config/rofi/wifimenu/rofi-wifi-menu.sh &
 
 #Find out your monitor name with xrandr or arandr (save and you get this line)
 #xrandr --output VGA-1 --primary --mode 1360x768 --pos 0x0 --rotate normal
@@ -39,3 +40,5 @@ numlockx on &
 #run volumeicon &
 #run firefox &
 #run pcmanfm &
+
+#----------------------------------------- eof -----------------------------------------

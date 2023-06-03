@@ -12,40 +12,31 @@ killall -q polybar
 # Wait until the processes have been shut down
 while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
-desktop=$(echo $DESKTOP_SESSION)
-count=$(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l)
+# launch bar
+polybar top &
+
+if [[ $(xrandr -q | grep 'HDMI-A-0 connected') ]]; then
+  polybar top_external &
+fi
 
 
-case $desktop in
-
-    # i3|/usr/share/xsessions/i3)
-    # if type "xrandr" > /dev/null; then
-    #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    #     MONITOR=$m polybar --reload mainbar-i3 -c ~/.config/polybar/config &
-    #   done
-    # else
-    # polybar --reload mainbar-i3 -c ~/.config/polybar/config &
-    # fi
-    #===============================================================================================
-    # second polybar at bottom
-    # if type "xrandr" > /dev/null; then
-    #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    #     MONITOR=$m polybar --reload mainbar-i3-extra -c ~/.config/polybar/config &
-    #   done
-    # else
-    # polybar --reload mainbar-i3-extra -c ~/.config/polybar/config &
-    # fi
-    #;;
+# desktop=$(echo $DESKTOP_SESSION)
+# count=$(xrandr --query | grep " connected" | cut -d" " -f1 | wc -l)
 
 
-    bspwm|/usr/share/xsessions/bspwm)
-    if type "xrandr" > /dev/null; then
-      for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-        MONITOR=$m polybar --reload mainbar-bspwm -c ~/.config/polybar/config.ini &
-      done
-    else
-    polybar --reload mainbar-bspwm -c ~/.config/polybar/config.ini &
-    fi
+# case $desktop in
+
+#     bspwm|/usr/share/xsessions/bspwm)
+#     if type "xrandr" > /dev/null; then
+#       for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+#         MONITOR=$m polybar --reload otp -c ~/.config/polybar/config.ini &
+#       done
+#     else
+#     polybar --reload top_external -c ~/.config/polybar/config.ini &
+#     fi;;
+
+#----------------------------------------- second polybar -----------------------------------------
+
     # second polybar at bottom
     # if type "xrandr" > /dev/null; then
     #   for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
@@ -54,7 +45,10 @@ case $desktop in
     # else
     # polybar --reload mainbar-bspwm-extra -c ~/.config/polybar/config.ini &
     # fi
-    ;;
+    # ;;
 
 
-esac
+# esac
+
+#----------------------------------------- eof -----------------------------------------
+

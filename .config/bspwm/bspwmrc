@@ -11,14 +11,15 @@ bspc config top_padding          28
 bspc config bottom_padding       8
 bspc config left_padding         8
 bspc config right_padding        8
-bspc config single_monocle       false
+#bspc config single_monocle       false
 # bspc config click_to_focus       true
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 # bspc config focus_by_distance    true
-bspc config focus_follows_pointer true
+#bspc config focus_follows_pointer true
 # bspc config history_aware_focus  true
+
 bspc config pointer_modifier mod4
 bspc config pointer_action1 move
 bspc config pointer_action2 resize_side
@@ -28,8 +29,14 @@ bspc config merge_overlapping_monitors true
 
 # dual monitor
 # find out names with arandr or xrandr
-bspc monitor -d 1 2 3 4 5
-bspc monitor HDMI-A-0 -d 1 2 3 4 5
+
+# change this to left to use the monitor on left side   ->    --right-of eDP fi
+if [[ $(xrandr -q | grep 'HDMI-A-0 connected') ]]; then
+xrandr --output eDP --primary --mode 1920x1080 --rotate normal --output HDMI-A-0 --mode 1920x1080 --rotate normal --right-of eDP
+fi
+
+bspc monitor eDP -d 1 2 3 4
+bspc monitor HDMI-A-0 -d 5 6 7 8
 
 # BSPWM coloring
 bspc config normal_border_color		"#4c566a"
@@ -39,7 +46,7 @@ bspc config presel_feedback_color	"#5e81ac"
 #bspc config urgent_border_color 	"#dd2727"
 
 #Fullscreen applications
-bspc rule -a Vlc state=fullscreen
+#bspc rule -a Vlc state=fullscreen
 #bspc rule -a Gimp state=fullscreen
 
 #Fix Mouse curoor on startup
@@ -91,5 +98,4 @@ bspc rule -a Xfce4-settings-manager state=tiled
 
 
 
-#====================================================================================
-#====================================================================================
+#----------------------------------------- eof -----------------------------------------
