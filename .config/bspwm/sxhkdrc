@@ -214,7 +214,18 @@ super + F12
 #ctrl + alt + r
 #  rofi-theme-selector
 
+#super + shift + e
+#	rofi -show emoji
 
+#super + shift + n
+#	rofi-nerdfonts
+
+#super + shift + c
+#	rofi -show calc
+
+#rofi wifi menu
+super + shift + c
+	sh ~/.config/rofi/wifimenu/rofi-wifi-menu.sh
 
 #===================================== Applications/scripts =====================================
 
