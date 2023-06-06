@@ -77,7 +77,9 @@ super + shift + r
 ctrl + alt + x
     xkill
 
-
+#qmmp music player
+super + m
+    qmmp
 
 #super + g; {n,t,l,g,k,a,o}
 #  {nitrogen,telegram-desktop,lowriter,gimp,kdenlive,flatpak run org.audacityteam.Audacity,flatpak run com.obsproject.Studio}
