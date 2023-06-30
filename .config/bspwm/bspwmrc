@@ -30,6 +30,7 @@ bspc config merge_overlapping_monitors true
 # dual monitor
 # find out names with arandr or xrandr
 # external monitor on the left, use:   --left-of eDP fi
+# rotation [normal left inverted right x axis y axis]
 if [[ $(xrandr -q | grep 'HDMI-A-0 connected') ]]; then
 xrandr --output eDP --primary --mode 1920x1080 --rotate normal --output HDMI-A-0 --mode 1920x1080 --rotate normal --right-of eDP
 fi
