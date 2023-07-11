@@ -57,6 +57,9 @@ bspc config presel_feedback_color	"#5e81ac"
 bspc rule -a Arandr state=floating
 bspc rule -a feh state=floating
 
+#scratchpad
+bspc rule -a scpad sticky=on state=floating rectangle=800x400+250+250
+
 #Tiled applications
 bspc rule -a Xfce4-settings-manager state=tiled
 
