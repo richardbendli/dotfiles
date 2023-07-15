@@ -123,7 +123,7 @@ alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
 
 #---------------------------------------------------------------
 # speedtest
-alias st="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python3 -"
+alias st="speedtest-cli --secure"
 
 
 #---------------------------------------------------------------
