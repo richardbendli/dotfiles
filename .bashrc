@@ -84,6 +84,9 @@ ex ()
   fi
 }
 
+# lvim
+export PATH="$HOME/.local/bin":$PATH
+
 #---------------------------------------------------------------
 
 # █████╗ ██╗     ██╗ █████╗ ███████╗███████╗███████╗
@@ -111,8 +114,12 @@ alias l.='exa -a | egrep "^\."'
 # text editors
 # nano
 alias na='sudo nano -l'
+
 # vim
-alias vim="nvim"
+alias vim="lvim"
+#alias lvimrc='lvim ~/.config/lvim/'
+
+#alias vim="nvim"
 #alias nvimrc='nvim ~/.config/nvim/'
 
 
