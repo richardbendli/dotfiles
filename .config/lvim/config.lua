@@ -57,5 +57,5 @@ lvim.builtin.which_key.mappings["C"] = {
 -- transparent
 lvim.transparent_window = true
 
-
-
+-- colorscheme
+lvim.colorscheme = "aurora"

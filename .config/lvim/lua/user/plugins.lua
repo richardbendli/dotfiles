@@ -4,4 +4,6 @@ lvim.plugins = {
    "mfussenegger/nvim-dap-python",
    "nvim-neotest/neotest",
    "nvim-neotest/neotest-python",
+   "lunarvim/colorschemes",
+   "folke/tokyonight.nvim",
  }
