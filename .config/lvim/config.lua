@@ -4,14 +4,10 @@
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
 
--- install plugins
-lvim.plugins = {
-  "ChristianChiarulli/swenv.nvim",
-  "stevearc/dressing.nvim",
-  "mfussenegger/nvim-dap-python",
-  "nvim-neotest/neotest",
-  "nvim-neotest/neotest-python",
-}
+reload "user.plugins"
+reload "user.options"
+reload "user.keymaps"
+reload "user.lsp"
 
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -46,20 +42,20 @@ require("neotest").setup({
   }
 })
 
-lvim.builtin.which_key.mappings["dm"] = { "<cmd>lua require('neotest').run.run()<cr>",
-  "Test Method" }
-lvim.builtin.which_key.mappings["dM"] = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
-  "Test Method DAP" }
-lvim.builtin.which_key.mappings["df"] = {
-  "<cmd>lua require('neotest').run.run({vim.fn.expand('%')})<cr>", "Test Class" }
-lvim.builtin.which_key.mappings["dF"] = {
-  "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Test Class DAP" }
-lvim.builtin.which_key.mappings["dS"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Test Summary" }
-
+require('swenv').setup({
+  post_set_venv = function()
+    vim.cmd("LspRestart")
+    end,
+})
 
 -- binding for switching
 lvim.builtin.which_key.mappings["C"] = {
   name = "Python",
   c = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
 }
+
+-- transparent
+lvim.transparent_window = true
+
+
 
