@@ -4,10 +4,29 @@
 -- Forum: https://www.reddit.com/r/lunarvim/
 -- Discord: https://discord.com/invite/Xb9B4Ny
 
-reload "user.plugins"
-reload "user.options"
-reload "user.keymaps"
 reload "user.lsp"
+reload "user.colorizer"
+reload "user.fidget"
+reload "user.harpoon"
+reload "user.keymaps"
+reload "user.matchup"
+reload "user.modicator"
+reload "user.neotest"
+reload "user.options"
+reload "user.plugins"
+-- scrollbar
+reload "user.smoothie"
+-- spectre
+reload "user.telescope"
+reload "user.treesitter"
+reload "user.whichkey"
+reload "user.bqf"
+reload "user.jaq"
+
+
+
+
+
 
 -- setup formatting
 local formatters = require "lvim.lsp.null-ls.formatters"
@@ -42,6 +61,7 @@ require("neotest").setup({
   }
 })
 
+-- AckslD/swenv.nvim
 require('swenv').setup({
   post_set_venv = function()
     vim.cmd("LspRestart")
@@ -54,8 +74,3 @@ lvim.builtin.which_key.mappings["C"] = {
   c = { "<cmd>lua require('swenv.api').pick_venv()<cr>", "Choose Env" },
 }
 
--- transparent
-lvim.transparent_window = true
-
--- colorscheme
-lvim.colorscheme = "aurora"
