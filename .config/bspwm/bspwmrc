@@ -32,12 +32,20 @@ bspc config merge_overlapping_monitors true
 # external monitor on the left, use:   --left-of eDP fi
 # rotation [normal left inverted right x axis y axis]
 if [[ $(xrandr -q | grep 'HDMI-A-0 connected') ]]; then
-xrandr --output eDP --primary --mode 1920x1080 --rotate normal --output HDMI-A-0 --mode 1920x1080 --rotate normal --right-of eDP
+xrandr --output eDP --primary --mode 1920x1080 --rotate normal --output HDMI-A-0 --mode 1920x1080 --rotate normal --left-of eDP
 fi
 
-# display
-bspc monitor eDP -d 1 2 3 4
-bspc monitor HDMI-A-0 -d 5 6 7 8
+# if [[ $(xrandr -q | grep 'DVI-I-1-1 connected') ]]; then
+# xrandr --output extern --primary --mode 1920x1080 --rotate normal --output DVI-I-1-1 --mode 1280x1024 --rotate normal --left-of extern
+# fi
+
+# if [[ $(xrandr -q | grep 'DVI-I-1-1 connected') ]]; then
+# xrandr --output DVI --primary --mode 1920x1080 --rotate normal --output DVI-I-1-1 --mode 1280x1024 --rotate normal --left-of DVI
+# fi
+
+bspc monitor eDP -d 5 6 7 8
+bspc monitor HDMI-A-0 -d 1 2 3 4
+#bspc monitor DVI-I-1-1 -d 9
 
 # BSPWM coloring
 bspc config normal_border_color		"#4c566a"
@@ -50,7 +58,7 @@ bspc config presel_feedback_color	"#5e81ac"
 #bspc rule -a Vlc state=fullscreen
 #bspc rule -a Gimp state=fullscreen
 
-#Fix Mouse curoor on startup
+#Fix Mouse cursor on startup
 #xsetroot -cursor_name left_ptr
 
 #Floating applications
