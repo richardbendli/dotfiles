@@ -65,11 +65,11 @@ ctrl + shift + p
 
 # shutdown
 ctrl + shift + F7
-    alacritty -e shutdown now
+    kitty -e shutdown now
 
 # open notes file in lvim
 super + alt + n
-    alacritty -e lvim $HOME/Documents/notes/notes.md
+    kitty -e lvim $HOME/Documents/notes/notes.md
 
 # rofi wifi menu
 super + alt + w
@@ -78,6 +78,10 @@ super + alt + w
 # movie
 super + alt + m
 	sh ~/.config/bspwm/scripts/movie.sh
+
+# scratchpad
+super + alt + y
+	sh ~/.config/bspwm/scripts/scratchpad_kitty.sh
 
 # focus selected desktop
 super + {1-9,0}
