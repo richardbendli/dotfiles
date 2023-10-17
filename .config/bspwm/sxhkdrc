@@ -1,22 +1,18 @@
-# alacritty
+# kitty
 super + Return
-    alacritty
+    kitty
 
 # ranger
 super + r
-    alacritty -e ranger
+    kitty -e ranger
 
 # lvim
 super + l
-    alacritty -e lvim
+    kitty -e lvim
 
 # btop
 super + b
-    alacritty -e btop
-
-# kitty
-super + y
-    kitty
+    kitty -e btop
 
 # kill
 super + q
