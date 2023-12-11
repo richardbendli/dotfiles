@@ -2,17 +2,9 @@
 super + Return
     kitty
 
-# ranger
-super + r
-    kitty -e ranger
-
-# lvim
-super + l
-    kitty -e lvim
-
-# btop
-super + b
-    kitty -e btop
+# nvim
+super + n
+    kitty -e nvim
 
 # kill
 super + q
