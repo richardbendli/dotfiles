@@ -102,12 +102,13 @@ export PATH="$HOME/.local/bin":$PATH
 
 
 #---------------------------------------------------------------
-# Changing "ls" to "exa"
-alias ls='exa -al --color=always --group-directories-first' # my preferred listing
-alias la='exa -a --color=always --group-directories-first'  # all files and dirs
-alias ll='exa -l --color=always --group-directories-first'  # long format
-alias lt='exa -aT --color=always --group-directories-first' # tree listing
-alias l.='exa -a | egrep "^\."'
+# Changing "ls" to "lsd"
+alias ls='lsd -al --color=always --group-directories-first' # my preferred listing
+alias la='lsd -a --color=always --group-directories-first'  # all files and dirs
+alias ll='lsd -l --color=always --group-directories-first'  # long format
+alias lt='lsd -aFlR --color=always --group-directories-first' #
+alias lt='lsd -l --tree --color=always --group-directories-first' # tree listing
+alias l.='lsd -a | egrep "^\."'
 
 
 #---------------------------------------------------------------
