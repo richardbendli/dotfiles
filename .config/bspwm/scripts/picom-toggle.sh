@@ -3,5 +3,5 @@ if pgrep -x "picom" > /dev/null
 then
 	killall picom
 else
-	picom --config ~/.config/picom/picom.conf --experimental-backends --vsync
+	picom -b --config ~/.config/bspwm/picom.conf
 fi

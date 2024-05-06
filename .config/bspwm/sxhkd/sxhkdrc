@@ -8,7 +8,7 @@ super + n
 
 # kill
 super + q
-	bspc node -c
+    bspc node -c
 
 # browser firefox
 alt + b
@@ -16,7 +16,8 @@ alt + b
 
 # browser brave
 alt + e
-    brave-browser-stable
+    brave
+    #brave-browser-stable
 
 # vscode
 alt + c
@@ -49,7 +50,7 @@ ctrl + shift + h
 
 # reload bspwm
 ctrl + shift + b
-	~/.config/bspwm/bspwmrc
+    ~/.config/bspwm/bspwmrc
 
 # picom toggle
 ctrl + shift + p
@@ -65,23 +66,23 @@ super + alt + n
 
 # rofi wifi menu
 super + alt + w
-	sh ~/.config/rofi/wifimenu/rofi-wifi-menu.sh
+    sh ~/.config/rofi/wifimenu/rofi-wifi-menu.sh
 
 # movie
 super + alt + m
-	sh ~/.config/bspwm/scripts/movie.sh
+    sh ~/.config/bspwm/scripts/movie.sh
 
 # scratchpad
 super + alt + y
-	sh ~/.config/bspwm/scripts/scratchpad_kitty.sh
+    sh ~/.config/bspwm/scripts/scratchpad_kitty.sh
 
 # focus selected desktop
 super + {1-9,0}
-	bspc desktop -f '^{1-9,10}'
+    bspc desktop -f '^{1-9,10}'
 
 # rotate desktop
 super + space
-	bspc node @/ --rotate {90,-90}
+    bspc node @/ --rotate {90,-90}
 
 # set the window state
 super + alt + {t,s,f}
@@ -89,15 +90,15 @@ super + alt + {t,s,f}
 
 # focus/swap windows by direction
 super + alt + {h,j,k,l}
-	bspc node --{focus} {west,south,north,east}
+    bspc node --{focus} {west,south,north,east}
 
 # expand tiled space
 super + alt + {Left,Down,Up,Right}
-	bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
+    bspc node {@west -r -10,@south -r +10,@north -r -10,@east -r +10}
 
 # focus/swap windows by direction,repositions the window with another
 super + {_,ctrl + }{h,j,k,l}
-	bspc node --{focus,swap} {west,south,north,east}
+    bspc node --{focus,swap} {west,south,north,east}
 
 # move window to selected desktop
 super + ctrl + {1-9,0}
