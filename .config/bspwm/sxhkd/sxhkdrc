@@ -17,15 +17,14 @@ alt + b
 # browser brave
 alt + e
     brave
-    #brave-browser-stable
 
 # vscode
 alt + c
     code
 
-# thunar
-alt + t
-    thunar
+#pcmanfm
+super + p
+    pcmanfm
 
 # qmmp
 alt + m
@@ -34,6 +33,15 @@ alt + m
 # rofi
 alt + r
     rofi -show drun
+
+#lockscreen
+super + l
+    betterlockscreen -l
+#    betterlockscreen -l blur
+
+#flameshot gui
+ctrl + alt + s
+    flameshot gui
 
 # notifications
 ctrl + shift + c
@@ -60,9 +68,9 @@ ctrl + shift + p
 ctrl + shift + F7
     kitty -e shutdown now
 
-# open notes file in lvim
+# open notes file in neovim
 super + alt + n
-    kitty -e lvim $HOME/Documents/notes/notes.md
+    kitty -e nvim $HOME/Documents/notes/notes.md
 
 # rofi wifi menu
 super + alt + w
