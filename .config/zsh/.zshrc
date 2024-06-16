@@ -1,11 +1,17 @@
 #!/bin/sh
 export ZDOTDIR=$HOME/.config/zsh
 HISTFILE=~/.zsh_history
-setopt appendhistory
 
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
+setopt appendhistory
+setopt extendedglob
+#setopt notify                                     # report the status of background jobs immediately
+#setopt numericglobsort                            # sort filenames numerically when it makes sense
+#setopt promptsubst                                # enable command substitution in prompt
+#setopt magicequalsubst                            # enable filename expansion for arguments of the form ‘anything=expression’
+
 stty stop undef		# Disable ctrl-s to freeze terminal.
 zle_highlight=('paste:none')
 
