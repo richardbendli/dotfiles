@@ -14,13 +14,12 @@
 
 
 #---------------------------------------------------------------
-# Changing "ls" to "lsd"
-alias ls='lsd -al --color=always --group-directories-first' # my preferred listing
-alias la='lsd -a --color=always --group-directories-first'  # all files and dirs
-alias ll='lsd -l --color=always --group-directories-first'  # long format
-alias lt='lsd -aFlR --color=always --group-directories-first' #
-alias lt='lsd -l --tree --color=always --group-directories-first' # tree listing
-alias l.='lsd -a | egrep "^\."'
+# Changing "ls" to "eza"
+alias ls='eza -al --color=always --group-directories-first' # my preferred listing
+alias la='eza -a --color=always --group-directories-first'  # all files and dirs
+alias ll='eza -l --color=always --group-directories-first'  # long format
+#alias lt='eza -l --tree --color=always --group-directories-first' # tree listing
+alias l.='eza -a | egrep "^\."'
 
 
 #---------------------------------------------------------------
