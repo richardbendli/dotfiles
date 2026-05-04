@@ -56,12 +56,12 @@ y = 0        # increase line spacing slightly
 [[keyboard.bindings]]
 action = "Paste"
 key = "V"
-mods = "Control|Shift"
+mods = "Control"
 
 [[keyboard.bindings]]
 action = "Copy"
 key = "C"
-mods = "Control|Shift"
+mods = "Control"
 
 [[keyboard.bindings]]
 action = "PasteSelection"
