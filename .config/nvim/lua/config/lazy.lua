@@ -1,39 +1,29 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  -- bootstrap lazy.nvim
-  -- stylua: ignore
-  vim.fn.system({
-     "git",
-     "clone",
-     "--filter=blob:none",
-     "https://github.com/folke/lazy.nvim.git",
-     "--branch=stable",
-     lazypath })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
+vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
     -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    --nvim-cmp
-    {'hrsh7th/cmp-cmdline'},
-    {'hrsh7th/cmp-vsnip'},
-    {'hrsh7th/vim-vsnip'},
--- {'rafamadriz/friendly-snippets'},
-
-    -- import any extras modules here
-    -- { import = "lazyvim.plugins.extras.lang.typescript" },
-    -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
-    -- { import = "lazyvim.plugins.extras.linting.eslint" },
-		-- { import = "lazyvim.plugins.extras.formatting.prettier" },
-    -- { import = "lazyvim.plugins.extras.lang.markdown" },
-    -- { import = "lazyvim.plugins.extras.lang.rust" },
-		-- { import = "lazyvim.plugins.extras.lang.tailwind" },
-		-- { import = "lazyvim.plugins.extras.coding.copilot" },
-		-- { import = "lazyvim.plugins.extras.dap.core" },
-
+    {
+      "LazyVim/LazyVim",
+      import = "lazyvim.plugins",
+      opts = {
+        colorscheme = "kanagawa-wave",  -- ← change this line to switch theme
+      },
+    },
     -- import/override with your plugins
     { import = "plugins" },
   },
@@ -46,41 +36,24 @@ require("lazy").setup({
     version = false, -- always use the latest git commit
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  install = {
-    -- colorscheme = { "tokyonight", "habamax"}
-  },
-
+  install = { colorscheme = { "catppuccin", "bamboo", "kanagawa", "gruvbox-material", "tokyonight", "habamax" } },
   checker = {
-    enabled = true }, -- automatically check for plugin updates
-
-  change_detection = {
-    -- automatically check for config file changes and reload the ui
-    enabled = true,
-    notify = true, -- get a notification when changes are found
-  },
-
+    enabled = true, -- check for plugin updates periodically
+    notify = false, -- notify on update
+  }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
-        "matchit",
-        "matchparen",
-        "netrw",
-        "netrwPlugin",
+        -- "matchit",
+        -- "matchparen",
+        -- "netrwPlugin",
         "tarPlugin",
         "tohtml",
         "tutor",
         "zipPlugin",
       },
     },
-  },
-
-  readme = {
-    enabled = true,
-    root = vim.fn.stdpath("state") .. "/lazy/readme",
-    files = { "README.md", "lua/**/README.md" },
-    -- only generate markdown helptags for plugins that dont have docs
-    skip_if_doc_exists = true,
   },
 })

@@ -1,51 +1,55 @@
--- Options are automatically loaded before lazy.nvim startup
--- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
--- Add any additional options here
+-- lua/config/options.lua
+-- LazyVim sets sane defaults. This file EXTENDS/OVERRIDES them.
+-- LazyVim defaults ref: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.g.autoformat = true
+local opt = vim.opt
 
-local opt = vim.opt -- for conciseness
+-- ── Editor ─────────────────────────────────────────────────────────────────
+opt.relativenumber  = true       -- rnu is essential for motion efficiency (LazyVim sets number=true)
+opt.scrolloff       = 8          -- LazyVim sets 4, 8 is better
+opt.sidescrolloff   = 8
+opt.wrap            = false      -- no line wrapping (toggle with <leader>uw)
+opt.colorcolumn     = "88"       -- Python black's line length — visual guide
+opt.cursorline      = true       -- highlight current line
 
-opt.winbar = "%=%m %f"
+-- ── Indentation ────────────────────────────────────────────────────────────
+-- Python PEP8 = 4 spaces. LazyVim defaults to 2. Override globally,
+-- then autocmds.lua will set 2 for lua/yaml etc.
+opt.tabstop         = 4
+opt.shiftwidth      = 4
+opt.softtabstop     = 4
+opt.expandtab       = true
 
--- line numbers
-opt.relativenumber = true -- show relative line numbers
-opt.number = true -- shows absolute line number on cursor line (when relative number is on)
-opt.termguicolors = true -- True color support
+-- ── Search ─────────────────────────────────────────────────────────────────
+opt.ignorecase      = true
+opt.smartcase       = true       -- case-sensitive when you use capitals
 
--- tabs & indentation
-opt.tabstop = 2 -- 2 spaces for tabs (prettier default)
-opt.shiftwidth = 2 -- 2 spaces for indent width
-opt.expandtab = true -- expand tab to spaces
-opt.autoindent = true -- copy indent from current line when starting new one
-opt.softtabstop = 2
-opt.smartindent = true -- Insert indents automatically
-opt.wrap = false -- Disable line wrap
+-- ── Files & Persistence ────────────────────────────────────────────────────
+opt.undofile        = true       -- persist undo history across sessions
+opt.swapfile        = false
+opt.backup          = false
+opt.updatetime      = 200        -- faster CursorHold (document highlight, hover)
 
--- lang
-opt.spelllang = { "en" }
+-- ── Clipboard ──────────────────────────────────────────────────────────────
+-- LazyVim already sets clipboard=unnamedplus on non-SSH sessions.
+-- Force it always (useful on Kali/headless with xclip/wl-clipboard):
+opt.clipboard       = "unnamedplus"
 
--- search settings
-opt.incsearch = true
-opt.ignorecase = true -- ignore case when searching
-opt.smartcase = true -- if you include mixed case in your search, assumes you want case-sensitive
-opt.hlsearch = false
+-- ── Splits ─────────────────────────────────────────────────────────────────
+opt.splitright      = true
+opt.splitbelow      = true
 
--- clipboard
-opt.clipboard:append("unnamedplus") -- use system clipboard as default register
+-- ── Appearance ─────────────────────────────────────────────────────────────
+opt.conceallevel    = 2          -- needed for render-markdown.nvim
+opt.pumheight       = 10         -- completion menu max height
+opt.showmode        = false      -- lualine handles this
 
--- split windows
-opt.splitright = true -- split vertical window to the right
-opt.splitbelow = true -- split horizontal window to the bottom
+-- ── Shell: important for your workflow ─────────────────────────────────────
+-- Make terminal commands use bash (consistent across distros)
+opt.shell           = "/bin/bash"
 
--- cursor line
-opt.cursorline = true -- highlight the current cursor line
-opt.guicursor =
-	"n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
-
-
-opt.iskeyword:append("-")
-opt.encoding = "UTF-8"
-
+-- ── Folding (Neovim 0.10+ treesitter folds) ────────────────────────────────
+opt.foldmethod      = "expr"
+opt.foldexpr        = "nvim_treesitter#foldexpr()"
+opt.foldenable      = false      -- start with all folds OPEN
+opt.foldlevel       = 99

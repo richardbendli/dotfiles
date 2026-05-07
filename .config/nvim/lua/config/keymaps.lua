@@ -1,67 +1,202 @@
--- Keymaps are automatically loaded on the VeryLazy event
--- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
+-- lua/config/keymaps.lua
+-- LazyVim already sets many great keymaps. This file ADDS to them.
+-- LazyVim defaults ref: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
+--
+-- LazyVim already gives you (do NOT redefine these):
+--   <leader>ff / <leader>fr / <leader>fb  → snacks picker (find files/recent/buffers)
+--   <leader>gg                             → lazygit (via snacks)
+--   <leader>e                              → neo-tree
+--   <leader>xl / <leader>xq               → trouble
+--   <leader>ca / <leader>cr               → code action / rename
+--   <leader>cf                             → format (conform)
+--   <leader>cd                             → line diagnostics
+--   [d / ]d                                → prev/next diagnostic
+--   <S-h> / <S-l>                          → prev/next buffer
+--   <leader>bd                             → delete buffer
+--   <C-h/j/k/l>                            → window navigation
 
-vim.keymap.set(
-  "n",
-  "<leader>sx",
-  require("telescope.builtin").resume,
-  { noremap = true, silent = true, desc = "Resume" }
-)
+local map = vim.keymap.set
 
--- Buffer Navigation
--- mapkey("<leader>bn", "bnext", "n") -- Next buffer
--- mapkey("<leader>bp", "bprevious", "n") -- Prev buffer
--- mapkey("<leader>bb", "e #", "n") -- Switch to Other Buffer
--- mapkey("<leader>`", "e #", "n") -- Switch to Other Buffer
+-- =============================================================================
+-- MOTION & EDITING FIXES
+-- =============================================================================
 
--- Directory Navigatio}n
--- mapkey("<leader>m", "NvimTreeFocus", "n")
--- mapkey("<leader>e", "NvimTreeToggle", "n")
+-- Keep cursor centred when scrolling/searching — stops disorienting jumps
+map("n", "<C-d>", "<C-d>zz", { desc = "Scroll down (centred)", silent = true })
+map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up (centred)",   silent = true })
+map("n", "n",     "nzzzv",   { desc = "Next result (centred)", silent = true })
+map("n", "N",     "Nzzzv",   { desc = "Prev result (centred)", silent = true })
 
--- Pane and Window Navigation
--- mapkey("<C-h>", "<C-w>h", "n") -- Navigate Left
--- mapkey("<C-j>", "<C-w>j", "n") -- Navigate Down
--- mapkey("<C-k>", "<C-w>k", "n") -- Navigate Up
--- mapkey("<C-l>", "<C-w>l", "n") -- Navigate Right
--- mapkey("<C-h>", "wincmd h", "t") -- Navigate Left
--- mapkey("<C-j>", "wincmd j", "t") -- Navigate Down
--- mapkey("<C-k>", "wincmd k", "t") -- Navigate Up
--- mapkey("<C-l>", "wincmd l", "t") -- Navigate Right
--- mapkey("<C-h>", "TmuxNavigateLeft", "n") -- Navigate Left
--- mapkey("<C-j>", "TmuxNavigateDown", "n") -- Navigate Down
--- mapkey("<C-k>", "TmuxNavigateUp", "n") -- Navigate Up
--- mapkey("<C-l>", "TmuxNavigateRight", "n") -- Navigate Right
+-- Y should act like D and C — yank to end of line, not whole line (vim inconsistency)
+map("n", "Y", "y$", { desc = "Yank to EOL", silent = true })
 
--- -- Window Management
--- mapkey("<leader>sv", "vsplit", "n") -- Split Vertically
--- mapkey("<leader>sh", "split", "n") -- Split Horizontally
--- mapkey("<C-Up>", "resize +2", "n")
--- mapkey("<C-Down>", "resize -2", "n")
--- mapkey("<C-Left>", "vertical resize +2", "n")
--- mapkey("<C-Right>", "vertical resize -2", "n")
+-- Join lines without the cursor jumping to the join point
+map("n", "J", "mzJ`z", { desc = "Join lines (cursor stays)", silent = true })
 
--- Indenting
--- vim.keymap.set("v", "<", "<gv", { silent = true, noremap = true })
--- vim.keymap.set("v", ">", ">gv", { silent = true, noremap = true })
+-- Search word under cursor but don't jump away immediately
+map("n", "*", "*N", { desc = "Search word (no jump)", silent = true })
 
--- Show Full File-Path
--- mapkey("<leader>pa", "echo expand('%:p')", "n") -- Show Full File Path
+-- Stay in visual mode after indenting — so you can keep shifting
+map("v", "<", "<gv", { desc = "Indent left (stay in visual)",  silent = true })
+map("v", ">", ">gv", { desc = "Indent right (stay in visual)", silent = true })
 
-local api = vim.api
+-- Move selected lines up/down and re-indent — great for reordering script blocks
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move selection down", silent = true })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move selection up",   silent = true })
 
--- Zen Mode
--- api.nvim_set_keymap("n", "<leader>zn", ":TZNarrow<CR>", {})
--- api.nvim_set_keymap("v", "<leader>zn", ":'<,'>TZNarrow<CR>", {})
--- api.nvim_set_keymap("n", "<leader>sm", ":TZFocus<CR>", {})
--- api.nvim_set_keymap("n", "<leader>zm", ":TZMinimalist<CR>", {})
--- api.nvim_set_keymap("n", "<leader>za", ":TZAtaraxis<CR>", {})
+-- =============================================================================
+-- REGISTERS & CLIPBOARD
+-- =============================================================================
 
--- Comments
--- api.nvim_set_keymap("n", "<C-_>", "gtc", { noremap = false })
--- api.nvim_set_keymap("v", "<C-_>", "goc", { noremap = false })
-api.nvim_set_keymap("n", "<C-/>", "gtc", { noremap = false })
-api.nvim_set_keymap("v", "<C-/>", "goc", { noremap = false })
+-- Paste over a visual selection WITHOUT losing your yank register.
+-- Default behaviour: pasting over selection replaces your register with what
+-- you just deleted. This fixes that. Use constantly when refactoring.
+map("x", "<leader>p", '"_dP', { desc = "Paste (preserve register)", silent = true })
+
+-- Delete without polluting the yank register
+map({ "n", "v" }, "<leader>D", '"_d', { desc = "Delete to void register", silent = true })
+
+-- Explicit system clipboard yanks — useful on SSH/Kali where clipboard
+-- integration needs xclip/wl-clipboard and sometimes falls back
+map({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard",      silent = true })
+map("n",          "<leader>Y", '"+Y', { desc = "Yank line to system clipboard", silent = true })
+
+-- =============================================================================
+-- SEARCH & REPLACE
+-- =============================================================================
+
+-- Replace every occurrence of the word under cursor in this file.
+-- Press <leader>sr, then immediately type your replacement, then Enter.
+-- The cursor lands inside the replacement text ready to edit.
+map("n", "<leader>sr",
+  ":%s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
+  { desc = "Replace word under cursor (file)" })
+
+-- Same but only within a visual selection
+map("v", "<leader>sr",
+  ":s/\\<<C-r><C-w>\\>/<C-r><C-w>/gI<Left><Left><Left>",
+  { desc = "Replace word under cursor (selection)" })
+
+-- =============================================================================
+-- QUICKFIX & LOCATION LIST
+-- =============================================================================
+-- Essential navigation when using LSP references, grep results, diagnostics.
+-- LazyVim doesn't bind these by default.
+
+map("n", "]q", "<cmd>cnext<CR>zz", { desc = "Next quickfix item",  silent = true })
+map("n", "[q", "<cmd>cprev<CR>zz", { desc = "Prev quickfix item",  silent = true })
+map("n", "]l", "<cmd>lnext<CR>zz", { desc = "Next location item",  silent = true })
+map("n", "[l", "<cmd>lprev<CR>zz", { desc = "Prev location item",  silent = true })
+map("n", "<leader>xo", "<cmd>copen<CR>",  { desc = "Open quickfix list",  silent = true })
+map("n", "<leader>xc", "<cmd>cclose<CR>", { desc = "Close quickfix list", silent = true })
+
+-- =============================================================================
+-- FILE OPERATIONS
+-- =============================================================================
+
+-- Source the current file (when editing your own Neovim config)
+map("n", "<leader>so", "<cmd>source %<CR>", { desc = "Source current file", silent = true })
+
+-- Make the current file executable in one keystroke.
+-- Workflow: write bash script → <leader>cx → run it.
+map("n", "<leader>cx", "<cmd>!chmod +x %<CR>",
+  { desc = "chmod +x (make executable)", silent = true })
+
+-- Copy file path to clipboard — useful when referencing files in notes/reports
+map("n", "<leader>cp", function()
+  local path = vim.fn.expand("%:p")
+  vim.fn.setreg("+", path)
+  vim.notify("Copied: " .. path, vim.log.levels.INFO)
+end, { desc = "Copy absolute file path" })
+
+map("n", "<leader>cP", function()
+  local path = vim.fn.expand("%")
+  vim.fn.setreg("+", path)
+  vim.notify("Copied: " .. path, vim.log.levels.INFO)
+end, { desc = "Copy relative file path" })
+
+-- =============================================================================
+-- FILETYPE RUNNER
+-- =============================================================================
+-- Run the current file without leaving Neovim. Opens a split terminal.
+-- Detects filetype automatically — no configuration needed.
+
+map("n", "<leader>rr", function()
+  local ft   = vim.bo.filetype
+  local file = vim.fn.expand("%:p")
+  local runners = {
+    python = "python3 ",
+    sh     = "bash ",
+    bash   = "bash ",
+    lua    = function() vim.cmd("source %") end,
+  }
+  local runner = runners[ft]
+  if type(runner) == "function" then
+    runner()
+  elseif runner then
+    vim.cmd("split | terminal " .. runner .. file)
+    vim.cmd("startinsert")
+  else
+    vim.notify("No runner configured for: " .. ft, vim.log.levels.WARN)
+  end
+end, { desc = "Run current file" })
+
+-- =============================================================================
+-- UI TOGGLES
+-- =============================================================================
+
+map("n", "<leader>uw", function()
+  vim.opt.wrap = not vim.opt.wrap:get()
+  vim.notify("Wrap: " .. tostring(vim.opt.wrap:get()))
+end, { desc = "Toggle word wrap" })
+
+map("n", "<leader>ur", function()
+  vim.opt.relativenumber = not vim.opt.relativenumber:get()
+end, { desc = "Toggle relative numbers" })
+
+map("n", "<leader>uc", function()
+  if vim.opt.colorcolumn:get()[1] then
+    vim.opt.colorcolumn = ""
+  else
+    vim.opt.colorcolumn = "88"
+  end
+end, { desc = "Toggle colour column (88)" })
+
+-- =============================================================================
+-- TERMINAL
+-- =============================================================================
+
+-- LazyVim uses snacks terminal for floating term. These add split-based ones:
+map("n", "<leader>tv", "<cmd>vsplit | terminal<CR>",
+  { desc = "Terminal (vertical split)",   silent = true })
+map("n", "<leader>th", "<cmd>split  | terminal<CR>",
+  { desc = "Terminal (horizontal split)", silent = true })
+
+-- Escape terminal mode without reaching for Ctrl-\ Ctrl-n
+map("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode", silent = true })
 
 
+-- =============================================================================
+-- HARPOON 2
+-- =============================================================================
+-- Fast bookmarks for 2-4 files you're actively switching between.
+-- Better than bufferline for focused work: bookmark your main script,
+-- your notes file, your config — jump between them instantly.
+--
+-- Usage:
+--   <leader>ha      → add current file to harpoon list
+--   <leader>hh      → open the harpoon quick menu
+--   <leader>1-4     → jump directly to harpoon slot 1/2/3/4
 
+map("n", "<leader>ha", function() require("harpoon"):list():add() end,
+  { desc = "Harpoon: add file" })
+map("n", "<leader>hh", function()
+  local h = require("harpoon")
+  h.ui:toggle_quick_menu(h:list())
+end, { desc = "Harpoon: menu" })
+
+for i = 1, 4 do
+  map("n", "<leader>" .. i, function()
+    require("harpoon"):list():select(i)
+  end, { desc = "Harpoon: file " .. i })
+end
