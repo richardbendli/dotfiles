@@ -1,18 +1,14 @@
--- lua/config/options.lua
--- LazyVim sets sane defaults. This file EXTENDS/OVERRIDES them.
--- LazyVim defaults ref: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
-
 local opt = vim.opt
 
--- ── Editor ─────────────────────────────────────────────────────────────────
-opt.relativenumber  = true       -- rnu is essential for motion efficiency (LazyVim sets number=true)
-opt.scrolloff       = 8          -- LazyVim sets 4, 8 is better
+-- Editor
+opt.relativenumber  = true
+opt.scrolloff       = 8
 opt.sidescrolloff   = 8
-opt.wrap            = false      -- no line wrapping (toggle with <leader>uw)
-opt.colorcolumn     = "88"       -- Python black's line length — visual guide
-opt.cursorline      = true       -- highlight current line
+opt.wrap            = false
+opt.colorcolumn     = "88"
+opt.cursorline      = true
 
--- ── Indentation ────────────────────────────────────────────────────────────
+-- Indentation
 -- Python PEP8 = 4 spaces. LazyVim defaults to 2. Override globally,
 -- then autocmds.lua will set 2 for lua/yaml etc.
 opt.tabstop         = 4
@@ -20,35 +16,33 @@ opt.shiftwidth      = 4
 opt.softtabstop     = 4
 opt.expandtab       = true
 
--- ── Search ─────────────────────────────────────────────────────────────────
+-- Search
 opt.ignorecase      = true
-opt.smartcase       = true       -- case-sensitive when you use capitals
+opt.smartcase       = true
 
--- ── Files & Persistence ────────────────────────────────────────────────────
-opt.undofile        = true       -- persist undo history across sessions
+-- iles & Persistence
+opt.undofile        = true
 opt.swapfile        = false
 opt.backup          = false
-opt.updatetime      = 200        -- faster CursorHold (document highlight, hover)
+opt.updatetime      = 200
 
--- ── Clipboard ──────────────────────────────────────────────────────────────
--- LazyVim already sets clipboard=unnamedplus on non-SSH sessions.
--- Force it always (useful on Kali/headless with xclip/wl-clipboard):
+-- Clipboard
 opt.clipboard       = "unnamedplus"
 
--- ── Splits ─────────────────────────────────────────────────────────────────
+-- Splits
 opt.splitright      = true
 opt.splitbelow      = true
 
--- ── Appearance ─────────────────────────────────────────────────────────────
+-- Appearance
 opt.conceallevel    = 2          -- needed for render-markdown.nvim
 opt.pumheight       = 10         -- completion menu max height
 opt.showmode        = false      -- lualine handles this
 
--- ── Shell: important for your workflow ─────────────────────────────────────
+-- Shell:
 -- Make terminal commands use bash (consistent across distros)
 opt.shell           = "/bin/bash"
 
--- ── Folding (Neovim 0.10+ treesitter folds) ────────────────────────────────
+-- Folding
 opt.foldmethod      = "expr"
 opt.foldexpr        = "nvim_treesitter#foldexpr()"
 opt.foldenable      = false      -- start with all folds OPEN

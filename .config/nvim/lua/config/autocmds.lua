@@ -1,13 +1,8 @@
--- lua/config/autocmds.lua
--- LazyVim sets its own autocmds (prefixed lazyvim_*). This file adds yours.
-
 local function augroup(name)
   return vim.api.nvim_create_augroup("user_" .. name, { clear = true })
 end
 
--- ── Filetype-specific indentation ──────────────────────────────────────────
--- options.lua sets 4-space globally (Python PEP8).
--- Override to 2-space for languages where that's conventional.
+-- Filetype-specific indentation
 vim.api.nvim_create_autocmd("FileType", {
   group   = augroup("indent"),
   pattern = { "lua", "yaml", "json", "toml", "html", "css", "javascript", "typescript" },
@@ -18,9 +13,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ── Terraform: ensure correct filetype detection ────────────────────────────
--- vim-terraform handles most of this but belt-and-suspenders for .hcl files
--- that might be Packer, Consul, or Vault configs
+-- Terraform: ensure correct filetype detection
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   group   = augroup("terraform_ft"),
   pattern = { "*.tf", "*.tfvars", "*.hcl" },
@@ -29,7 +22,7 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
   end,
 })
 
--- ── Python ──────────────────────────────────────────────────────────────────
+-- Python
 vim.api.nvim_create_autocmd("FileType", {
   group    = augroup("python_settings"),
   pattern  = "python",
@@ -40,9 +33,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ── Bash: always treat sh as bash ───────────────────────────────────────────
--- Ensures bashls sends the right capabilities and shellcheck uses bash rules.
--- Without this, files with #!/usr/bin/env bash still get treated as plain sh.
+-- Bash: always treat sh as bash
 vim.api.nvim_create_autocmd("FileType", {
   group    = augroup("bash_settings"),
   pattern  = { "sh", "bash" },
@@ -52,8 +43,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ── Markdown: writing-friendly settings ────────────────────────────────────
--- Applies to all Markdown files: notes, READMEs, documentation.
+-- Markdown: writing-friendly settings
 vim.api.nvim_create_autocmd("FileType", {
   group    = augroup("markdown_settings"),
   pattern  = "markdown",
@@ -69,9 +59,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ── TOML: project config files ──────────────────────────────────────────────
--- Ensure TOML gets 2-space indent (pyproject.toml, Cargo.toml convention)
--- and taplo formatter is available via conform.
+-- TOML: project config files
 vim.api.nvim_create_autocmd("FileType", {
   group    = augroup("toml_settings"),
   pattern  = "toml",
@@ -82,9 +70,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ── JSON ─────────────────────────────────────────────────────────────────────
--- 2-space indent is universal for JSON. Folding by syntax is useful for
--- deeply nested AWS policy documents.
+-- JSON
 vim.api.nvim_create_autocmd("FileType", {
   group    = augroup("json_settings"),
   pattern  = { "json", "jsonc" },
@@ -97,7 +83,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ── Highlight yanked text ───────────────────────────────────────────────────
+-- Highlight yanked text
 vim.api.nvim_create_autocmd("TextYankPost", {
   group    = augroup("highlight_yank"),
   callback = function()
@@ -105,8 +91,7 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   end,
 })
 
--- ── Auto-create parent directories on save ─────────────────────────────────
--- mkdir -p equivalent: do :e some/new/deep/file.py and the dirs get created.
+-- Auto-create parent directories on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   group    = augroup("auto_mkdir"),
   callback = function(event)
@@ -116,7 +101,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- ── Return to last cursor position on reopen ───────────────────────────────
+-- Return to last cursor position on reopen
 vim.api.nvim_create_autocmd("BufReadPost", {
   group    = augroup("last_position"),
   callback = function(event)
@@ -131,7 +116,7 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- ── Close utility filetypes with just q ────────────────────────────────────
+-- Close utility filetypes with just q
 vim.api.nvim_create_autocmd("FileType", {
   group    = augroup("close_with_q"),
   pattern  = {
@@ -146,9 +131,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
--- ── Strip trailing whitespace on save ──────────────────────────────────────
--- conform.nvim handles this via trim_whitespace for most types, but this
--- catches any filetype conform doesn't have a formatter configured for.
+-- Strip trailing whitespace on save
 vim.api.nvim_create_autocmd("BufWritePre", {
   group    = augroup("strip_whitespace"),
   pattern  = { "*.py", "*.sh", "*.bash", "*.tf", "*.lua",

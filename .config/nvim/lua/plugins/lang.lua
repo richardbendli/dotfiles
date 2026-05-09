@@ -1,17 +1,6 @@
--- lua/plugins/lang.lua
--- LSP, formatting, linting, and notes tooling.
--- Languages: Python · Bash · Terraform · YAML · JSON · TOML · Markdown
---
--- ⚠️  mason-lspconfig v2 (your locked version) breaking changes:
---     automatic_installation and handlers are REMOVED.
---     Do NOT spec mason-lspconfig — LazyVim owns it internally.
---     Servers in opts.servers are auto-installed via LazyVim's bridge.
-
 return {
 
-  -- ── 1. mason.nvim: formatters and linters ONLY ───────────────────────────
-  -- LSP servers go in lspconfig opts.servers — LazyVim installs them via
-  -- mason-lspconfig automatically. Don't list LSP servers here.
+  -- mason.nvim: formatters and linters ONLY
   {
     "mason-org/mason.nvim", -- renamed williamboman/mason.nvim
     opts = {
@@ -29,10 +18,9 @@ return {
         "tflint",      -- linter
 
         -- TOML — taplo handles both formatting AND the LSP.
-        -- We use it as a formatter only (lightweight choice).
         "taplo",
 
-        -- YAML / Markdown / JSON — prettier handles all three
+        -- YAML / Markdown / JSON
         "prettier",
 
         -- Dockerfile
@@ -41,9 +29,7 @@ return {
     },
   },
 
-  -- ── 2. nvim-lspconfig: server configs ────────────────────────────────────
-  -- JSON and TOML: NO LSP (lightweight choice — just formatting + treesitter)
-  -- Everything else gets full LSP with hover, go-to-def, diagnostics, etc.
+  -- nvim-lspconfig: server configs
   {
     "neovim/nvim-lspconfig",
     opts = {
@@ -66,9 +52,7 @@ return {
 
       servers = {
 
-        -- ── Python: basedpyright ──────────────────────────────────────────
-        -- Actively maintained pyright fork. Better defaults, stricter checks.
-        -- Mason pkg: "basedpyright"
+        -- Python: basedpyright
         basedpyright = {
           settings = {
             basedpyright = {
@@ -87,8 +71,7 @@ return {
           },
         },
 
-        -- ── Bash: bashls ─────────────────────────────────────────────────
-        -- Mason pkg: "bash-language-server"
+        -- Bash: bashls
         bashls = {
           filetypes = { "sh", "bash", "zsh" },
           settings = {
@@ -100,23 +83,16 @@ return {
           },
         },
 
-        -- ── Terraform: terraformls ────────────────────────────────────────
-        -- Mason pkg: "terraform-ls"
+        -- Terraform: terraformls
         -- Requires: terraform binary in PATH + `terraform init` run in project
         terraformls = {
           filetypes = { "terraform", "tf", "terraform-vars" },
         },
 
-        -- ── Markdown: marksman ────────────────────────────────────────────
-        -- Mason pkg: "marksman"
-        -- Gives you link completion, document symbols, go-to-definition
-        -- for [[wikilinks]] — useful even without obsidian.nvim
+        -- Markdown: marksman
         marksman = {},
 
-        -- ── YAML: yamlls ─────────────────────────────────────────────────
-        -- Mason pkg: "yaml-language-server"
-        -- Schema store auto-detects and validates: GitHub Actions, AWS
-        -- CloudFormation, Docker Compose, K8s manifests, and more
+        -- YAML: yamlls
         yamlls = {
           settings = {
             yaml = {
@@ -145,17 +121,14 @@ return {
           },
         },
 
-        -- ── Dockerfile ────────────────────────────────────────────────────
-        -- Mason pkg: "dockerfile-language-server"
+        -- Dockerfile
         dockerls = {},
 
-        -- JSON and TOML: intentionally no LSP — formatter + treesitter only.
-        -- Add jsonls / taplo-lsp here later if you want full LSP for them.
       },
 
-      -- ── setup: per-server custom behaviour ───────────────────────────────
+      -- setup: per-server custom behaviour
       setup = {
-        -- Auto-detect Python virtualenv so basedpyright uses the right Python
+        -- Auto-detect Python virtualenv
         basedpyright = function(_, opts)
           opts.before_init = function(_, config)
             local venv_dirs = { ".venv", "venv", "env", ".env" }
@@ -173,9 +146,7 @@ return {
       },
     },
 
-    -- ── Extra keymaps on LspAttach ────────────────────────────────────────
-    -- LazyVim already binds: gd, gr, gI, gy, K, <leader>ca, <leader>cr,
-    -- <leader>cf, [d, ]d. We add the ones it misses.
+    -- Extra keymaps on LspAttach
     init = function()
       vim.api.nvim_create_autocmd("LspAttach", {
         group    = vim.api.nvim_create_augroup("user_lsp_keymaps", { clear = true }),
@@ -187,7 +158,6 @@ return {
           end
 
           map("n", "gD",         vim.lsp.buf.declaration,    "Go to Declaration")
-          map("n", "<C-k>",      vim.lsp.buf.signature_help, "Signature Help")
           map("i", "<C-k>",      vim.lsp.buf.signature_help, "Signature Help")
           map("v", "<leader>ca", vim.lsp.buf.code_action,    "Code Action (range)")
           map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder,
@@ -200,7 +170,7 @@ return {
 
           local client = vim.lsp.get_client_by_id(event.data.client_id)
 
-          -- Toggle inlay hints (Neovim 0.10+)
+          -- Toggle inlay hints
           if client and vim.lsp.inlay_hint
             and client.supports_method("textDocument/inlayHint") then
             map("n", "<leader>uh", function()
@@ -229,7 +199,7 @@ return {
     end,
   },
 
-  -- ── 3. conform.nvim: formatters ──────────────────────────────────────────
+  -- conform.nvim: formatter
   {
     "stevearc/conform.nvim",
     opts = {
@@ -263,7 +233,7 @@ return {
     },
   },
 
-  -- ── 4. nvim-lint: linters ────────────────────────────────────────────────
+  -- nvim-lint: linters
   {
     "mfussenegger/nvim-lint",
     opts = {
@@ -312,8 +282,7 @@ return {
     end,
   },
 
-  -- ── 5. Treesitter: parsers for all your languages ────────────────────────
-  -- vim.list_extend ADDS to LazyVim's existing list — doesn't replace it.
+  -- Treesitter: parsers for all languages
   {
     "nvim-treesitter/nvim-treesitter",
     opts = function(_, opts)
@@ -331,7 +300,7 @@ return {
     end,
   },
 
-  -- ── 8. vim-terraform: filetype detection + fmt ────────────────────────────
+  -- vim-terraform: filetype detection + fmt
   {
     "hashivim/vim-terraform",
     ft = { "terraform", "tf", "hcl" },
@@ -341,7 +310,7 @@ return {
     end,
   },
 
-  -- ── 9. venv-selector: switch Python virtualenvs interactively ────────────
+  -- venv-selector: switch Python virtualenvs interactively
   -- Without this, basedpyright will use system Python even if you have a
   -- venv active in the shell. VenvSelect syncs it inside Neovim.
   {
@@ -360,7 +329,7 @@ return {
     },
   },
 
-  -- ── 10. harpoon2: fast file bookmarking ──────────────────────────────────
+  -- harpoon2: fast file bookmarking
   -- Keymaps live in keymaps.lua. Spec here handles install + setup.
   {
     "ThePrimeagen/harpoon",

@@ -1,16 +1,13 @@
 -- lua/plugins/colorschemes.lua
 return {
 
-  -- ── Catppuccin ─────────────────────────────────────────────────────────────
-  -- Already downloaded by LazyVim. This spec properly configures it.
-  -- Flavours available: latte (light), frappe, macchiato, mocha (darkest)
-  -- Switch with :colorscheme catppuccin-frappe / catppuccin-macchiato / catppuccin-mocha
+  -- Catppuccin
   {
     "catppuccin/nvim",
     name = "catppuccin",
-    priority = 1000,    -- load before everything else
+    priority = 1000,
     opts = {
-      flavour = "mocha",  -- default flavour when you do :colorscheme catppuccin
+      flavour = "mocha",
       background = {
         light = "latte",
         dark  = "mocha",
@@ -31,10 +28,7 @@ return {
     },
   },
 
-  -- ── Bamboo ──────────────────────────────────────────────────────────────────
-  -- Two variants:
-  --   :colorscheme bamboo          → Regular (balanced green-tinted dark)
-  --   :colorscheme bamboo-vulgaris → Vulgaris (warmer, more contrast)
+  -- Bamboo
   {
     "ribru17/bamboo.nvim",
     priority = 1000,
@@ -51,27 +45,19 @@ return {
 
 
 
--- ── Kanagawa ────────────────────────────────────────────────────────────────
-  -- Three variants:
-  --   :colorscheme kanagawa          → defaults to wave
-  --   :colorscheme kanagawa-wave     → dark blue/grey (classic)
-  --   :colorscheme kanagawa-dragon   → darker, warmer brown tones
-  --   :colorscheme kanagawa-lotus    → light variant
+-- Kanagawa
   {
     "rebelot/kanagawa.nvim",
     priority = 1000,
     opts = {
-      theme      = "wave",       -- default variant
+      theme       = "wave",       -- default variant
       transparent = false,
       dimInactive = false,
       terminalColors = true,
     },
   },
 
-  -- ── Gruvbox ──────────────────────────────────────────────────────────────────
-  -- Using gruvbox-material (better maintained than the original gruvbox.nvim)
-  -- Three contrast levels: "hard" | "medium" | "soft"
-  --   :colorscheme gruvbox-material
+  -- Gruvbox
   {
     "sainnhe/gruvbox-material",
     priority = 1000,
